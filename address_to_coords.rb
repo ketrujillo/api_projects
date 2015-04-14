@@ -15,20 +15,12 @@ street_address = gets.chomp
 # Replaces spaces and other URL-illegal characters in the string
 url_safe_street_address = URI.encode(street_address)
 
-# Your code goes below. Hints:
+url_of_data_we_want = "http://maps.googleapis.com/maps/api/geocode/json?address=" + url_safe_street_address
+raw_data = open(url_of_data_we_want).read
+parsed_data = JSON.parse(raw_data)
 
-# url_of_data_we_want = "???"
-# raw_data = ???
-# parsed_data = ???
+the_latitude = parsed_data["results"][0]["geometry"]["location"]["lat"]
+the_longitude = parsed_data["results"][0]["geometry"]["location"]["lng"]
 
-# ...
 
-# Let's store the latitude in a variable called 'the_latitude',
-#   and the longitude in a variable called 'the_longitude'.
-
-# the_latitude = ???
-# the_longitude = ???
-
-# Ultimately, we want the following line to work when uncommented:
-
-# puts "The latitude of #{street_address} is #{the_latitude} and the longitude is #{the_longitude}."
+puts "The latitude of #{street_address} is #{the_latitude} and the longitude is #{the_longitude}."
